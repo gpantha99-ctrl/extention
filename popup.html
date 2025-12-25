@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="popup.css">
+    </head>
+    <body>
+
+        <h2> Ultra Reminder Pro</h2>
+
+        <input id="text" placeholder="Reminder text">
+        <input id="time" type="datetime-local">
+
+        <select id="repeat">
+            <option value="once">One Time</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+        </select>
+
+        <select id="priority">
+            <option value="High">High</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="Low">Low</option>
+        </select>
+
+        <select id="tag">
+            <option value="">No Tag</option>
+            <option value="Work">Work</option>
+            <option value="Study">Study</option>
+            <option value="Personal">Personal</option>
+        </select>
+
+        <input id="soundUrl" placeholder="Sound URL (optional)">
+
+        <div class="toggles">
+            <label><input type="checkbox" id="dark">Dark Mode</label>
+            <label><input type="checkbox" id="sound">Sound</label>
+        </div>
+
+        <button id="export">Export JSON</button>
+        <input type="file" id="importFile">
+        <button id="import">Import JSON</button>
+        
+        <ul id="list"></ul>
+
+        <script src="popup.js"></script>
+    </body>
+</html>
