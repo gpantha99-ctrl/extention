@@ -1,47 +1,116 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="popup.css">
-    </head>
-    <body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindPulse</title>
+  <link rel="stylesheet" href="popup.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+</head>
+<body>
 
-        <h2> Ultra Reminder Pro</h2>
+  <!-- ── Header ── -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-pulse"></span>
+      <span class="logo-text">Mind<em>Pulse</em></span>
+    </div>
+    <button class="btn-add" id="btnOpenForm" title="New Reminder">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      New
+    </button>
+  </header>
 
-        <input id="text" placeholder="Reminder text">
-        <input id="time" type="datetime-local">
+  <!-- ── Add / Edit Form (initially hidden) ── -->
+  <section class="form-panel" id="formPanel">
+    <h2 class="form-title">New Reminder</h2>
 
-        <select id="repeat">
-            <option value="once">One Time</option>
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
+    <div class="field">
+      <label>Title</label>
+      <div class="input-row">
+        <button class="emoji-btn" id="emojiBtn" title="Pick emoji">🔔</button>
+        <input type="text" id="inputTitle" placeholder="e.g. Team standup…" maxlength="60"/>
+      </div>
+    </div>
+
+    <!-- Emoji Picker -->
+    <div class="emoji-picker" id="emojiPicker">
+      <span>🔔</span><span>📅</span><span>💊</span><span>🏋️</span>
+      <span>📖</span><span>💧</span><span>☕</span><span>🎯</span>
+      <span>🧘</span><span>🍎</span><span>💰</span><span>📞</span>
+      <span>✈️</span><span>🎂</span><span>🐶</span><span>🌙</span>
+      <span>⚡</span><span>🎵</span><span>🖥️</span><span>❤️</span>
+    </div>
+
+    <div class="field">
+      <label>Note <small>(optional)</small></label>
+      <input type="text" id="inputNote" placeholder="Add a short note…" maxlength="100"/>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Date &amp; Time</label>
+        <input type="datetime-local" id="inputTime"/>
+      </div>
+      <div class="field">
+        <label>Repeat</label>
+        <select id="selectRepeat">
+          <option value="none">Once</option>
+          <option value="hourly">Hourly</option>
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
         </select>
+      </div>
+    </div>
 
-        <select id="priority">
-            <option value="High">High</option>
-            <option value="Medium" selected>Medium</option>
-            <option value="Low">Low</option>
-        </select>
+    <div class="form-actions">
+      <button class="btn-cancel" id="btnCancel">Cancel</button>
+      <button class="btn-save" id="btnSave">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8.5l3.5 3.5 6.5-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Save Reminder
+      </button>
+    </div>
+  </section>
 
-        <select id="tag">
-            <option value="">No Tag</option>
-            <option value="Work">Work</option>
-            <option value="Study">Study</option>
-            <option value="Personal">Personal</option>
-        </select>
+  <!-- ── Stats Bar ── -->
+  <div class="stats-bar" id="statsBar">
+    <div class="stat">
+      <span class="stat-num" id="statTotal">0</span>
+      <span class="stat-label">Total</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num" id="statPending">0</span>
+      <span class="stat-label">Pending</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-num" id="statDone">0</span>
+      <span class="stat-label">Done</span>
+    </div>
+  </div>
 
-        <input id="soundUrl" placeholder="Sound URL (optional)">
+  <!-- ── Filter Tabs ── -->
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-filter="all">All</button>
+    <button class="tab" data-filter="pending">Pending</button>
+    <button class="tab" data-filter="done">Done</button>
+  </div>
 
-        <div class="toggles">
-            <label><input type="checkbox" id="dark">Dark Mode</label>
-            <label><input type="checkbox" id="sound">Sound</label>
-        </div>
+  <!-- ── Reminder List ── -->
+  <main class="reminder-list" id="reminderList">
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">🔕</div>
+      <p>No reminders yet</p>
+      <small>Hit <strong>+ New</strong> to add one</small>
+    </div>
+  </main>
 
-        <button id="export">Export JSON</button>
-        <input type="file" id="importFile">
-        <button id="import">Import JSON</button>
-        
-        <ul id="list"></ul>
-
-        <script src="popup.js"></script>
-    </body>
+  <script src="popup.js"></script>
+</body>
 </html>
